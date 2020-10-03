@@ -1,5 +1,4 @@
 let express = require('express');
-let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let foodsRouter = require('./routes/foods');
 let mongoose = require('mongoose');
@@ -11,7 +10,6 @@ mongoose.connect('mongodb://localhost/yellow_foods_mongodb', { useNewUrlParser: 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use('/api', foodsRouter);
 app.use(function(req, res, next){

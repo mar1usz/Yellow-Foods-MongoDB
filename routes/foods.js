@@ -13,7 +13,7 @@ router.get('/foods', function (req, res, next) {
   });
 });
 
-// GET: api/foods/1
+// GET: api/foods/5f77ba2bfe614c1ac4e63a3d
 router.get('/foods/:id', function (req, res, next) {
   foods.findById(req.params.id).exec(function (err, food) {
     if (!err && food !== null)
@@ -39,7 +39,7 @@ router.post('/foods', function (req, res, next) {
   }
 });
 
-// PUT: api/foods/1
+// PUT: api/foods/5f77ba2bfe614c1ac4e63a3d
 router.put('/foods/:id', function (req, res, next) {
   if (!req.body._id || req.body._id !== req.params.id || !req.body.name) {
     errors.badRequest(req, res, next);
@@ -54,7 +54,7 @@ router.put('/foods/:id', function (req, res, next) {
   }
 });
 
-// DELETE: api/foods/1
+// DELETE: api/foods/5f77ba2bfe614c1ac4e63a3d
 router.delete('/foods/:id', function (req, res, next) {
   foods.findByIdAndDelete(req.params.id).exec(function (err, food) {
     if (!err && food !== null)

@@ -16,7 +16,7 @@ GET api/foods/5f77ba2bfe614c1ac4e63a3d
 - MongoDB 4.4.1
 
 ## Build and run:
-### Node.js / open:
+### nodemon / open:
 - `npm install`
 - `npm start`
 

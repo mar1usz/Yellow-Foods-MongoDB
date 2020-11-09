@@ -1,40 +1,42 @@
 let express = require('express');
 let router = express.Router();
-let foods = require('../models/food');
-let errors = require('./helpers/errors');
+let food = require('../models/food');
+const { badRequest, notFound, internal } = require('./helpers/errors');
 
 // GET: api/foods
 router.get('/foods', function (req, res, next) {
-  foods.find().exec(function (err, food) {
+  food.find().exec(function (err, food) {
     if (!err)
       res.status(200).json(food);
     else
-      errors.internalServerError(req, res, next);
+      res.status(500).json(internal);
   });
 });
 
 // GET: api/foods/5f77ba2bfe614c1ac4e63a3d
 router.get('/foods/:id', function (req, res, next) {
-  foods.findById(req.params.id).exec(function (err, food) {
+  food.findById(req.params.id).exec(function (err, food) {
     if (!err && food !== null)
       res.status(200).json(food);
+    else if  (!err && food === null)
+      res.status(404).json(notFound);
     else
-      errors.internalServerError(req, res, next);
+      res.status(500).json(internal);
   });
 });
 
 // POST: api/foods
 router.post('/foods', function (req, res, next) {
   if (!req.body.name) {
-    errors.badRequest(req, res, next);
+    res.status(400).json(badRequest);
   }
   else {
-    let foodToSave = new foods({ name: req.body.name });
-    foodToSave.save(function (err, food) {
+    let newFood = new food({ name: req.body.name });
+    newFood.save(function (err, food) {
       if (!err && food !== null)
         res.status(201).json(food);
       else
-        errors.internalServerError(req, res, next);
+        res.status(500).json(internal);
     });
   }
 });
@@ -42,25 +44,29 @@ router.post('/foods', function (req, res, next) {
 // PUT: api/foods/5f77ba2bfe614c1ac4e63a3d
 router.put('/foods/:id', function (req, res, next) {
   if (!req.body._id || req.body._id !== req.params.id || !req.body.name) {
-    errors.badRequest(req, res, next);
+    res.status(400).json(badRequest);
   }
   else {
-    foods.findByIdAndUpdate(req.params.id, req.body).exec(function (err, food) {
+    food.findByIdAndUpdate(req.params.id, req.body).exec(function (err, food) {
       if (!err && food !== null)
-        res.status(204).json({});
+        res.status(204).json();
+      else if  (!err && food === null)
+        res.status(404).json(notFound);
       else
-        errors.internalServerError(req, res, next);
+        res.status(500).json(internal);
     });
   }
 });
 
 // DELETE: api/foods/5f77ba2bfe614c1ac4e63a3d
 router.delete('/foods/:id', function (req, res, next) {
-  foods.findByIdAndDelete(req.params.id).exec(function (err, food) {
+  food.findByIdAndDelete(req.params.id).exec(function (err, food) {
     if (!err && food !== null)
       res.status(200).json(food);
+    else if  (!err && food === null)
+      res.status(404).json(notFound);
     else
-      errors.internalServerError(req, res, next);
+      res.status(500).json(internal);
   });
 });
 

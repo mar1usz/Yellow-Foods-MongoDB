@@ -2,7 +2,7 @@ let express = require('express');
 let logger = require('morgan');
 let mongoose = require('mongoose');
 let foodsRouter = require('./routes/foods');
-let errors = require('./routes/helpers/errors');
+const { notFound } = require('./routes/helpers/errors');
 
 let app = express();
 
@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', foodsRouter);
-app.use(errors.notFound);
+app.use(function (req, res, next) {
+  res.status(404).json(notFound);
+});
 
 module.exports = app;

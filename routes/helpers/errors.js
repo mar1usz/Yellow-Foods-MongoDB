@@ -1,13 +1,16 @@
-let notFound = function(req, res, next){
-    res.status(404).json({ status: 404, title: 'Not Found' });
-}
+let badRequest = {
+    status: 400,
+    title: 'Bad Request'
+};
 
-let internalServerError = function(req, res, next){
-    res.status(500).json({ status: 500, title: 'Internal Server Error' });
-}
+let notFound = {
+    status: 404,
+    title: 'Not Found'
+};
 
-let badRequest = function(req, res, next){
-    res.status(400).json({ status: 400, title: 'Bad Request' });
-}
+let internal = {
+    status: 500,
+    title: 'Internal Server Error'
+};
 
-module.exports = { notFound, internalServerError, badRequest };
+module.exports = { badRequest, notFound, internal };

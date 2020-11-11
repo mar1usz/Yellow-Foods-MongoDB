@@ -21,4 +21,4 @@ GET api/foods/5f77ba2bfe614c1ac4e63a3d
 - `npm start`
 
 ## Credits:
-- express-generator by https://expressjs.com/en/starter/generator.html (MIT license)
+- express-generator by https://www.npmjs.com/package/express-generator (MIT license)

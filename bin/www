@@ -8,6 +8,7 @@ let app = require('../app');
 let debug = require('debug')('yellow-foods-mongodb:server');
 let http = require('http');
 let open = require('open');
+let firstRun = require('first-run');
 
 /**
  * Get port from environment and store in Express.
@@ -29,9 +30,11 @@ let server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-(async () => {
-  await open('http://localhost:3000/api/foods/5f77ba2bfe614c1ac4e63a3d');
-})();
+if (firstRun()) {
+  (async () => {
+    await open('http://localhost:3000/api/foods/5f77ba2bfe614c1ac4e63a3d');
+  })();
+}
 
 /**
  * Normalize a port into a number, string, or false.

@@ -1,14 +1,14 @@
-let badRequest = {
+const badRequest = {
     status: 400,
     title: 'Bad Request'
 };
 
-let notFound = {
+const notFound = {
     status: 404,
     title: 'Not Found'
 };
 
-let internal = {
+const internal = {
     status: 500,
     title: 'Internal Server Error'
 };

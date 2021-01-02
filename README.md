@@ -18,6 +18,7 @@ GET api/foods/5f77ba2bfe614c1ac4e63a3d
 
 ## Build and run:
 ### nodemon / open:
+- `npm update`
 - `npm install`
 - `npm start`
 

@@ -4,24 +4,24 @@
  * Module dependencies.
  */
 
-let app = require('../app');
-let debug = require('debug')('yellow-foods-mongodb:server');
-let http = require('http');
-let open = require('open');
-let firstRun = require('first-run');
+const app = require('../app');
+const debug = require('debug')('yellow-foods-mongodb:server');
+const http = require('http');
+const open = require('open');
+const firstRun = require('first-run');
 
 /**
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-let server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -30,6 +30,7 @@ let server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 if (firstRun()) {
   (async () => {
     await open('http://localhost:3000/api/foods/5f77ba2bfe614c1ac4e63a3d');

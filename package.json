@@ -9,9 +9,9 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "first-run": "^2.0.0",
-    "mongoose": "^5.10.7",
+    "mongoose": "^5.11.11",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.4",
-    "open": "^7.3.0"
+    "nodemon": "^2.0.7",
+    "open": "^7.3.1"
   }
 }

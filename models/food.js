@@ -1,6 +1,8 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-let foodSchema = mongoose.Schema(
+const Schema = mongoose.Schema;
+
+const FoodSchema = new Schema(
     {
         name: { type: String, required: true }
     },
@@ -8,4 +10,4 @@ let foodSchema = mongoose.Schema(
         versionKey: false
     });
 
-module.exports = mongoose.model('food', foodSchema);
+module.exports = mongoose.model('Food', FoodSchema);

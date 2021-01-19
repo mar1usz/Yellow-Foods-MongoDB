@@ -35,27 +35,3 @@ exports.notFound = () =>
             title: 'Not Found',
             type: 'https://tools.ietf.org/html/rfc7231#section-6.5.4'
         });
-
-exports.forbid = () =>
-    problemDetailsFactory
-        .createProblemDetails({
-            status: 403,
-            title: 'Forbidden',
-            type: 'https://tools.ietf.org/html/rfc7231#section-6.5.3'
-        });
-
-exports.unauthorized = () =>
-    problemDetailsFactory
-        .createProblemDetails({
-            status: 401,
-            title: 'Unauthorized',
-            type: 'https://tools.ietf.org/html/rfc7235#section-3.1'
-        });
-
-exports.badRequest = () =>
-    problemDetailsFactory
-        .createProblemDetails({
-            status: 400,
-            title: 'Bad Request',
-            type: 'https://tools.ietf.org/html/rfc7231#section-6.5.1'
-        });

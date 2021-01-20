@@ -16,19 +16,19 @@ exports.problemDetailsFactory = {
         // create new problem details object
         let problemDetails = {};
 
-        // assign extension members
-        if (extensions && extensions instanceof Object) {
-            for (const [name, value] of Object.entries(extensions)) {
-                problemDetails[name] = value;
-            }
-        }
-
         // assign properties
         if (type) problemDetails['type'] = type;
         if (title) problemDetails['title'] = title;
         if (status) problemDetails['status'] = status;
         if (detail) problemDetails['detail'] = detail;
         if (instance) problemDetails['instance'] = instance;
+
+        // assign extension members
+        if (extensions && extensions instanceof Object) {
+            for (const [name, value] of Object.entries(extensions)) {
+                problemDetails[name] = value;
+            }
+        }
 
         return problemDetails;
     }

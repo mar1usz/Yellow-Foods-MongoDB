@@ -19,13 +19,13 @@ exports.problem = ({
             extensions: extensions
         });
 
-exports.validationProblem = (errors = null) =>
+exports.validationProblem = ({ errors = null } = {}) =>
     problemDetailsFactory
         .createProblemDetails({
             status: 400,
             title: 'One or more validation errors occurred.',
             type: 'https://tools.ietf.org/html/rfc7231#section-6.5.1',
-            extensions: errors
+            extensions: { errors: errors ?? {} }
         });
 
 exports.notFound = () =>

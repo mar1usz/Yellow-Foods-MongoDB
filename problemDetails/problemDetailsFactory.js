@@ -8,6 +8,7 @@ exports.problemDetailsFactory = {
         title = null,
         type = null,
         extensions = null } = {}) {
+
         // apply defaults
         status ??= 500;
         title ??= 'An error occured while processing your request.';
@@ -25,8 +26,8 @@ exports.problemDetailsFactory = {
 
         // assign extension members
         if (extensions && extensions instanceof Object) {
-            for (const [name, value] of Object.entries(extensions)) {
-                problemDetails[name] = value;
+            for (const [key, value] of Object.entries(extensions)) {
+                problemDetails[key] = value;
             }
         }
 

@@ -11,15 +11,21 @@ router.get(
   (req, res, next) => {
     Food
       .find()
-      .exec(function (err, food) {
-        if (!err) {
-          res.status(200).json(food);
+      .exec(
+        function (err, foods) {
+          if (!err) {
+            const body = foods.map(food => ({
+              _id: food._id,
+              name: food.name
+            }));
+            res.status(200).json(body);
+          }
+          else {
+            const body = problem();
+            res.status(body.status).problemJson(body.status);
+          }
         }
-        else {
-          const body = problem();
-          res.status(body.status).problemJson(body.status);
-        }
-      });
+      );
   });
 
 // GET: /foods/5f77ba2bfe614c1ac4e63a3d
@@ -27,20 +33,28 @@ router.get(
   '/foods/:_id',
   (req, res, next) => {
     Food
-      .findById(req.params._id)
-      .exec(function (err, food) {
-        if (!err && food !== null) {
-          res.status(200).json(food);
+      .findById(
+        req.params._id
+      )
+      .exec(
+        function (err, food) {
+          if (!err && food !== null) {
+            const body = {
+              _id: food._id,
+              name: food.name
+            };
+            res.status(200).json(body);
+          }
+          else if (!err && food === null) {
+            const body = notFound();
+            res.status(body.status).problemJson(body);
+          }
+          else {
+            const body = problem();
+            res.status(body.status).problemJson(body);
+          }
         }
-        else if (!err && food === null) {
-          const body = notFound();
-          res.status(body.status).problemJson(body);
-        }
-        else {
-          const body = problem();
-          res.status(body.status).problemJson(body);
-        }
-      });
+      );
   });
 
 // POST: /foods
@@ -52,14 +66,22 @@ router.post(
       res.status(body.status).problemJson(body);
     }
     else {
+      const food = new Food({
+        name: req.body.name
+      });
+
       Food
         .create(
-          new Food(req.body),
-          function (err, food) {
+          food,
+          function (err, createdFood) {
             if (!err && food !== null) {
-              res.status(201).json(food);
+              const body = {
+                _id: createdFood._id,
+                name: createdFood.name
+              };
+              res.status(201).json(body);
             }
-            else if (!err && food === null) {
+            else if (!err && createdFood === null) {
               const body = notFound();
               res.status(body.status).problemJson(body);
             }
@@ -84,11 +106,50 @@ router.put(
       res.status(body.status).problemJson(body);
     }
     else {
+      const food = new Food({
+        _id: req.body._id,
+        name: req.body.name
+      });
+
       Food
-        .findByIdAndUpdate(req.params._id, req.body)
-        .exec(function (err, food) {
-          if (!err && food !== null) {
-            res.status(204).json(null);
+        .findByIdAndUpdate(
+          req.params._id,
+          food
+        )
+        .exec(
+          function (err, updatedFood) {
+            if (!err && updatedFood !== null) {
+              res.status(204).json(null);
+            }
+            else if (!err && updatedFood === null) {
+              const body = notFound();
+              res.status(body.status).problemJson(body);
+            }
+            else {
+              const body = problem();
+              res.status(body.status).problemJson(body);
+            }
+          }
+        );
+    }
+  });
+
+// DELETE: /foods/5f77ba2bfe614c1ac4e63a3d
+router.delete(
+  '/foods/:_id',
+  (req, res, next) => {
+    Food
+      .findByIdAndDelete(
+        req.params._id
+      )
+      .exec(
+        function (err, deletedFood) {
+          if (!err && deletedFood !== null) {
+            const body = {
+              _id: deletedFood._id,
+              name: deletedFood.name
+            };
+            res.status(200).json(body);
           }
           else if (!err && food === null) {
             const body = notFound();
@@ -99,29 +160,7 @@ router.put(
             res.status(body.status).problemJson(body);
           }
         }
-        );
-    }
-  });
-
-// DELETE: /foods/5f77ba2bfe614c1ac4e63a3d
-router.delete(
-  '/foods/:_id',
-  (req, res, next) => {
-    Food
-      .findByIdAndDelete(req.params._id)
-      .exec(function (err, food) {
-        if (!err && food !== null) {
-          res.status(200).json(food);
-        }
-        else if (!err && food === null) {
-          const body = notFound();
-          res.status(body.status).problemJson(body);
-        }
-        else {
-          const body = problem();
-          res.status(body.status).problemJson(body);
-        }
-      });
+      );
   });
 
 module.exports = router;

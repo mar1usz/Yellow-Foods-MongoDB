@@ -11,18 +11,17 @@ router.get(
   (req, res, next) => {
     Food
       .find()
+      .select(
+        '_id, name'
+      )
       .exec(
         function (err, foods) {
           if (!err) {
-            const body = foods.map(food => ({
-              _id: food._id,
-              name: food.name
-            }));
-            res.status(200).json(body);
+            res.status(200).json(foods);
           }
           else {
             const body = problem();
-            res.status(body.status).problemJson(body.status);
+            res.status(body.status).problemJson(body);
           }
         }
       );
@@ -36,14 +35,13 @@ router.get(
       .findById(
         req.params._id
       )
+      .select(
+        '_id, name'
+      )
       .exec(
         function (err, food) {
           if (!err && food !== null) {
-            const body = {
-              _id: food._id,
-              name: food.name
-            };
-            res.status(200).json(body);
+            res.status(200).json(food);
           }
           else if (!err && food === null) {
             const body = notFound();
@@ -70,16 +68,14 @@ router.post(
         name: req.body.name
       });
 
-      Food
-        .create(
-          food,
+      food
+        .save(
           function (err, createdFood) {
             if (!err && food !== null) {
-              const body = {
+              res.status(201).json({
                 _id: createdFood._id,
                 name: createdFood.name
-              };
-              res.status(201).json(body);
+              });
             }
             else if (!err && createdFood === null) {
               const body = notFound();
@@ -139,19 +135,18 @@ router.delete(
   '/foods/:_id',
   (req, res, next) => {
     Food
-      .findByIdAndDelete(
+      .findByIdAndRemove(
         req.params._id
+      )
+      .select(
+        '_id, name'
       )
       .exec(
         function (err, deletedFood) {
           if (!err && deletedFood !== null) {
-            const body = {
-              _id: deletedFood._id,
-              name: deletedFood.name
-            };
-            res.status(200).json(body);
+            res.status(200).json(deletedFood);
           }
-          else if (!err && food === null) {
+          else if (!err && deletedFood === null) {
             const body = notFound();
             res.status(body.status).problemJson(body);
           }

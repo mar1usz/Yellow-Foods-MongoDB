@@ -71,7 +71,7 @@ router.post(
       food
         .save(
           function (err, createdFood) {
-            if (!err && food !== null) {
+            if (!err && createdFood !== null) {
               res.status(201).json({
                 _id: createdFood._id,
                 name: createdFood.name

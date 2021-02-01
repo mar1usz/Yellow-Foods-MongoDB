@@ -15,9 +15,9 @@ const db_url = 'mongodb://localhost/yellow_foods_mongodb';
 mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
+// mount express middleware
 app.use(logger('dev'));
 app.use(express.json());
-
 app.use('/api', foodsRouter);
 
 // handle 404 responses

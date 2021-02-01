@@ -1,7 +1,7 @@
 const express = require('express');
 const Food = require('../models/food');
 
-const { problem, notFound, validationProblem } = require('../problemDetails/problemDetailsConvenienceMethods');
+const { createNotFound, createProblem, createValidationProblem, } = require('../problemDetails/problemDetailsConvenienceMethods');
 
 const router = express.Router();
 
@@ -20,8 +20,8 @@ router.get(
             res.status(200).json(foods);
           }
           else {
-            const body = problem();
-            res.status(body.status).problemJson(body);
+            const problem = createProblem();
+            res.status(problem.status).problemJson(problem);
           }
         }
       );
@@ -44,12 +44,12 @@ router.get(
             res.status(200).json(food);
           }
           else if (!err && food === null) {
-            const body = notFound();
-            res.status(body.status).problemJson(body);
+            const notFound = createNotFound();
+            res.status(notFound.status).problemJson(notFound);
           }
           else {
-            const body = problem();
-            res.status(body.status).problemJson(body);
+            const problem = createProblem();
+            res.status(problem.status).problemJson(problem);
           }
         }
       );
@@ -60,8 +60,8 @@ router.post(
   '/foods',
   (req, res, next) => {
     if (!req.body.name) {
-      const body = validationProblem();
-      res.status(body.status).problemJson(body);
+      const validationProblem = createValidationProblem();
+      res.status(validationProblem.status).problemJson(validationProblem);
     }
     else {
       const food = new Food({
@@ -78,12 +78,12 @@ router.post(
               });
             }
             else if (!err && createdFood === null) {
-              const body = notFound();
-              res.status(body.status).problemJson(body);
+              const notFound = createNotFound();
+              res.status(notFound.status).problemJson(notFound);
             }
             else {
-              const body = problem();
-              res.status(body.status).problemJson(body);
+              const problem = createProblem();
+              res.status(problem.status).problemJson(problem);
             }
           }
         );
@@ -98,8 +98,8 @@ router.put(
       || !req.body._id
       || req.params._id !== req.body._id
       || !req.body.name) {
-      const body = validationProblem();
-      res.status(body.status).problemJson(body);
+      const validationProblem = createValidationProblem();
+      res.status(validationProblem.status).problemJson(validationProblem);
     }
     else {
       const food = new Food({
@@ -115,15 +115,15 @@ router.put(
         .exec(
           function (err, updatedFood) {
             if (!err && updatedFood !== null) {
-              res.status(204).json(null);
+              res.status(204).json();
             }
             else if (!err && updatedFood === null) {
-              const body = notFound();
-              res.status(body.status).problemJson(body);
+              const notFound = createNotFound();
+              res.status(notFound.status).problemJson(notFound);
             }
             else {
-              const body = problem();
-              res.status(body.status).problemJson(body);
+              const problem = createProblem();
+              res.status(problem.status).problemJson(problem);
             }
           }
         );
@@ -147,12 +147,12 @@ router.delete(
             res.status(200).json(deletedFood);
           }
           else if (!err && deletedFood === null) {
-            const body = notFound();
-            res.status(body.status).problemJson(body);
+            const notFound = createNotFound();
+            res.status(notFound.status).problemJson(notFound);
           }
           else {
-            const body = problem();
-            res.status(body.status).problemJson(body);
+            const problem = createProblem();
+            res.status(problem.status).problemJson(problem);
           }
         }
       );

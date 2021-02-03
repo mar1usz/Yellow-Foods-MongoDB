@@ -6,7 +6,7 @@ exports.problemDetailsFactory = {
     title = null,
     type = null,
     extensions = null } = {}) {
-    // create new problem details
+    // create new problem details object
     let problemDetails = {};
 
     // assign properties

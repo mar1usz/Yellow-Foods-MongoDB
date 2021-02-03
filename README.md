@@ -24,3 +24,4 @@ GET api/foods/5f77ba2bfe614c1ac4e63a3d
 
 ## Credits:
 - express-generator by https://www.npmjs.com/package/express-generator (MIT license)
+- Problem Details for HTTP APIs by https://tools.ietf.org/html/rfc7807

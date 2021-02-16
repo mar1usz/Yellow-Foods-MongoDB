@@ -5,7 +5,7 @@ const { createNotFound, createProblem, createValidationProblem, } = require('../
 
 const router = express.Router();
 
-// GET: /foods
+// GET /foods
 router.get(
   '/foods',
   (req, res, next) => {
@@ -27,7 +27,7 @@ router.get(
       );
   });
 
-// GET: /foods/5f77ba2bfe614c1ac4e63a3d
+// GET /foods/5f77ba2bfe614c1ac4e63a3d
 router.get(
   '/foods/:_id',
   (req, res, next) => {
@@ -55,7 +55,7 @@ router.get(
       );
   });
 
-// POST: /foods
+// POST /foods
 router.post(
   '/foods',
   (req, res, next) => {
@@ -90,7 +90,7 @@ router.post(
     }
   });
 
-// PUT: /foods/5f77ba2bfe614c1ac4e63a3d
+// PUT /foods/5f77ba2bfe614c1ac4e63a3d
 router.put(
   '/foods/:_id',
   (req, res, next) => {
@@ -130,7 +130,7 @@ router.put(
     }
   });
 
-// DELETE: /foods/5f77ba2bfe614c1ac4e63a3d
+// DELETE /foods/5f77ba2bfe614c1ac4e63a3d
 router.delete(
   '/foods/:_id',
   (req, res, next) => {

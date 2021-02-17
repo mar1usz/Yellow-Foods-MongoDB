@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 
-const foodsRouter = require('./routes/foods');
+const foodsRouter = require('./controllers/foods');
 const { createNotFound } = require('./problemDetails/problemDetailsConvenienceMethods');
 
 // problem+json convenience method

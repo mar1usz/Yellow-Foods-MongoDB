@@ -7,7 +7,7 @@ exports.problemDetailsFactory = {
     type = null,
     extensions = null } = {}) {
     // create new problem details object
-    let problemDetails = {};
+    const problemDetails = {};
 
     // assign properties
     if (type && typeof (type) === 'string') problemDetails['type'] = type;

@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 
-const foodsRouter = require('./controllers/foods');
+const foodsController = require('./controllers/foods');
 const { createNotFound } = require('./problemDetails/problemDetailsConvenienceMethods');
 
 // problem+json convenience method
@@ -18,7 +18,7 @@ mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true });
 // mount express middleware
 app.use(logger('dev'));
 app.use(express.json());
-app.use('/api', foodsRouter);
+app.use('/api', foodsController);
 
 // handle 404 responses
 app.use((req, res, next) => {

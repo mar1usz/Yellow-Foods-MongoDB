@@ -26,11 +26,9 @@ exports.problemDetailsFactory = {
     if ('type' in problemDetails === false)
       problemDetails['type'] =
         'https://tools.ietf.org/html/rfc7231#section-6.6.1';
-
     if ('title' in problemDetails === false)
       problemDetails['title'] =
         'An error occured while processing your request.';
-
     if ('status' in problemDetails === false) problemDetails['status'] = 500;
 
     return problemDetails;

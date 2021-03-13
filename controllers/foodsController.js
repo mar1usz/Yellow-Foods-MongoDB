@@ -1,6 +1,5 @@
 const express = require('express');
 const Food = require('../models/food');
-
 const {
   createNotFound,
   createProblem,

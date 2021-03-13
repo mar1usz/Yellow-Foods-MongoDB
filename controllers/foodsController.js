@@ -9,7 +9,6 @@ const {
 
 const router = express.Router();
 
-// GET /foods
 router.get('/foods', (req, res, next) => {
   Food.find()
     .select('_id, name')
@@ -23,7 +22,6 @@ router.get('/foods', (req, res, next) => {
     });
 });
 
-// GET /foods/5f77ba2bfe614c1ac4e63a3d
 router.get('/foods/:_id', (req, res, next) => {
   Food.findById(req.params._id)
     .select('_id, name')
@@ -40,7 +38,6 @@ router.get('/foods/:_id', (req, res, next) => {
     });
 });
 
-// POST /foods
 router.post('/foods', (req, res, next) => {
   if (!req.body.name) {
     const validationProblem = createValidationProblem();
@@ -67,7 +64,6 @@ router.post('/foods', (req, res, next) => {
   }
 });
 
-// PUT /foods/5f77ba2bfe614c1ac4e63a3d
 router.put('/foods/:_id', (req, res, next) => {
   if (
     !req.params._id ||
@@ -100,7 +96,6 @@ router.put('/foods/:_id', (req, res, next) => {
   }
 });
 
-// DELETE /foods/5f77ba2bfe614c1ac4e63a3d
 router.delete('/foods/:_id', (req, res, next) => {
   Food.findByIdAndRemove(req.params._id)
     .select('_id, name')

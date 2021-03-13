@@ -7,10 +7,8 @@ exports.problemDetailsFactory = {
     type = null,
     extensions = null
   } = {}) {
-    // create new problem details object
     const problemDetails = {};
 
-    // assign properties
     if (type && typeof type === 'string') problemDetails['type'] = type;
     if (title && typeof title === 'string') problemDetails['title'] = title;
     if (status && typeof status === 'number') problemDetails['status'] = status;
@@ -18,7 +16,6 @@ exports.problemDetailsFactory = {
     if (instance && typeof instance === 'string')
       problemDetails['instance'] = instance;
 
-    // assign extension members
     if (extensions && extensions instanceof Object) {
       for (const [key, value] of Object.entries(extensions)) {
         problemDetails[key] = value;

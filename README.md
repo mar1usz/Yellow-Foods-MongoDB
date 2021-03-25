@@ -1,5 +1,5 @@
 # Yellow Foods MongoDB
-A MongoDB-backed REST API in JavaScript (Node.js) and Express.js with Problem Details:
+A MongoDB-backed REST API in JavaScript (Node.js) and Express.js:
 ```HTTP
 GET api/foods/5f77ba2bfe614c1ac4e63a3d
 ```

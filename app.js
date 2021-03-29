@@ -6,7 +6,6 @@ const {
   createNotFound
 } = require('./problemDetails/problemDetailsConvenienceMethods');
 
-// problem+json convenience method
 express.response.problemJson = function (body) {
   this.type('application/problem+json').json(body);
 };

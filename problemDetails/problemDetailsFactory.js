@@ -22,7 +22,6 @@ exports.problemDetailsFactory = {
       }
     }
 
-    // apply defaults
     if ('type' in problemDetails === false)
       problemDetails.type = 'https://tools.ietf.org/html/rfc7231#section-6.6.1';
     if ('title' in problemDetails === false)

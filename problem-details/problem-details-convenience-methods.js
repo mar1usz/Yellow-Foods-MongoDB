@@ -1,4 +1,4 @@
-const { problemDetailsFactory } = require('./problemDetailsFactory');
+const { problemDetailsFactory } = require('./problem-details-factory');
 
 exports.createProblem = ({
   detail = null,

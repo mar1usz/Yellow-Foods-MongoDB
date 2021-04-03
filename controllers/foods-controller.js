@@ -4,7 +4,7 @@ const {
   createNotFound,
   createProblem,
   createValidationProblem
-} = require('../problemDetails/problemDetailsConvenienceMethods');
+} = require('../problem-details/problem-details-convenience-methods');
 
 const router = express.Router();
 

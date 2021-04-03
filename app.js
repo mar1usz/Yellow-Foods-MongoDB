@@ -1,10 +1,10 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const foodsController = require('./controllers/foodsController');
+const foodsController = require('./controllers/foods-controller');
 const {
   createNotFound
-} = require('./problemDetails/problemDetailsConvenienceMethods');
+} = require('./problem-details/problem-details-convenience-methods');
 
 express.response.problemJson = function (body) {
   this.type('application/problem+json').json(body);

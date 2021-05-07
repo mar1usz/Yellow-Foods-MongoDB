@@ -65,9 +65,9 @@ router.post('/foods', (req, res, next) => {
 
 router.put('/foods/:_id', (req, res, next) => {
   if (
+    req.params._id !== req.body._id ||
     !req.params._id ||
     !req.body._id ||
-    req.params._id !== req.body._id ||
     !req.body.name
   ) {
     const validationProblem = createValidationProblem();

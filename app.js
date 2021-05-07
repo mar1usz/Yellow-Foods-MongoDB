@@ -6,10 +6,10 @@ const {
   createNotFound
 } = require('./problem-details/problem-details-convenience-methods');
 
-express.response.problemJson = function (body) {
+const app = express();
+app.response.problemJson = function (body) {
   this.type('application/problem+json').json(body);
 };
-const app = express();
 
 const db_url = 'mongodb://localhost/yellow_foods_mongodb';
 mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true });

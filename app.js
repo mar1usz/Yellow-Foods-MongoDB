@@ -24,17 +24,17 @@ app.use(logger('common'));
 app.use(express.json());
 app.use('/api', foodsRouter);
 
+app.use((req, res, next) => {
+  const notFound = createNotFound();
+  res.status(notFound.status).problemJson(notFound);
+});
+
 app.use((err, req, res, next) => {
   const problem =
     app.get('env') === 'development'
       ? createProblem({ title: err.message, detail: err.stack })
       : createProblem();
   res.status(problem.status).problemJson(problem);
-});
-
-app.use((req, res, next) => {
-  const notFound = createNotFound();
-  res.status(notFound.status).problemJson(notFound);
 });
 
 module.exports = app;

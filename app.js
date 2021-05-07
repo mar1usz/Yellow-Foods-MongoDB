@@ -12,7 +12,11 @@ app.response.problemJson = function (body) {
 };
 
 const db_url = 'mongodb://localhost/yellow_foods_mongodb';
-mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(db_url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+});
 
 app.use(logger('common'));
 app.use(express.json());

@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const foodsController = require('./controllers/foods-controller');
+const foodsRouter = require('./routes/foods-router');
 const {
   createNotFound
 } = require('./problem-details/problem-details-convenience-methods');
@@ -16,7 +16,7 @@ mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use('/api', foodsController);
+app.use('/api', foodsRouter);
 
 app.use((req, res, next) => {
   const notFound = createNotFound();

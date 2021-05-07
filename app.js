@@ -22,7 +22,9 @@ mongoose.connect(db_url, {
 
 app.use(logger('common'));
 app.use(express.json());
-app.use('/api', foodsRouter);
+
+const api_route = '/api';
+app.use(api_route, foodsRouter);
 
 app.use((req, res, next) => {
   const notFound = createNotFound();

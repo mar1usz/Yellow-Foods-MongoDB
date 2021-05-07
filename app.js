@@ -1,9 +1,11 @@
 const express = require('express');
+require('express-async-errors');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const foodsRouter = require('./routes/foods-router');
 const {
-  createNotFound
+  createNotFound,
+  createProblem
 } = require('./problem-details/problem-details-convenience-methods');
 
 const app = express();
@@ -21,6 +23,14 @@ mongoose.connect(db_url, {
 app.use(logger('common'));
 app.use(express.json());
 app.use('/api', foodsRouter);
+
+app.use((err, req, res, next) => {
+  const problem =
+    app.get('env') === 'development'
+      ? createProblem({ title: err.message, detail: err.stack })
+      : createProblem();
+  res.status(problem.status).problemJson(problem);
+});
 
 app.use((req, res, next) => {
   const notFound = createNotFound();

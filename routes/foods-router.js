@@ -18,28 +18,31 @@ router.get('/foods/:_id', async (req, res, next) => {
   if (food === null) {
     const notFound = createNotFound();
     res.status(notFound.status).problemJson(notFound);
-  } else {
-    res.status(200).json(food);
+    return;
   }
+
+  res.status(200).json(food);
 });
 
 router.post('/foods', async (req, res, next) => {
   if (!req.body.name) {
     const validationProblem = createValidationProblem();
     res.status(validationProblem.status).problemJson(validationProblem);
-  } else {
-    const food = new Food({
-      name: req.body.name
-    });
-    const savedFood = await food.save();
-
-    if (savedFood === null) {
-      const notFound = createNotFound();
-      res.status(notFound.status).problemJson(notFound);
-    } else {
-      res.status(201).json({ _id: savedFood._id, name: savedFood.name });
-    }
+    return;
   }
+
+  const food = new Food({
+    name: req.body.name
+  });
+  const savedFood = await food.save();
+
+  if (savedFood === null) {
+    const notFound = createNotFound();
+    res.status(notFound.status).problemJson(notFound);
+    return;
+  }
+
+  res.status(201).json({ _id: savedFood._id, name: savedFood.name });
 });
 
 router.put('/foods/:_id', async (req, res, next) => {
@@ -51,20 +54,22 @@ router.put('/foods/:_id', async (req, res, next) => {
   ) {
     const validationProblem = createValidationProblem();
     res.status(validationProblem.status).problemJson(validationProblem);
-  } else {
-    const food = new Food({
-      _id: req.body._id,
-      name: req.body.name
-    });
-    const updatedFood = await Food.findByIdAndUpdate(req.params._id, food);
-
-    if (updatedFood === null) {
-      const notFound = createNotFound();
-      res.status(notFound.status).problemJson(notFound);
-    } else {
-      res.status(204).json();
-    }
+    return;
   }
+
+  const food = new Food({
+    _id: req.body._id,
+    name: req.body.name
+  });
+  const updatedFood = await Food.findByIdAndUpdate(req.params._id, food);
+
+  if (updatedFood === null) {
+    const notFound = createNotFound();
+    res.status(notFound.status).problemJson(notFound);
+    return;
+  }
+
+  res.status(204).json();
 });
 
 router.delete('/foods/:_id', async (req, res, next) => {
@@ -75,9 +80,10 @@ router.delete('/foods/:_id', async (req, res, next) => {
   if (removedFood === null) {
     const notFound = createNotFound();
     res.status(notFound.status).problemJson(notFound);
-  } else {
-    res.status(200).json(removedFood);
+    return;
   }
+
+  res.status(200).json(removedFood);
 });
 
 module.exports = router;

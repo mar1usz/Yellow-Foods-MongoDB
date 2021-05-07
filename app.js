@@ -14,7 +14,7 @@ app.response.problemJson = function (body) {
 const db_url = 'mongodb://localhost/yellow_foods_mongodb';
 mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.use(logger('dev'));
+app.use(logger('common'));
 app.use(express.json());
 app.use('/api', foodsRouter);
 

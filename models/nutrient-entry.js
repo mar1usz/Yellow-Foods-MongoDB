@@ -6,7 +6,7 @@ const NutrientEntrySchema = new Schema({
   food_id: { type: Types.ObjectId, ref: 'Food', required: true },
   nutrient_id: { type: Types.ObjectId, ref: 'Nutrient', required: true },
   unit_id: { type: Types.ObjectId, ref: 'Unit', required: true },
-  amount: { type: Types.Decimal128, required: true }
+  amount: { type: Types.Decimal128, required: true, get: (v) => +v }
 });
 
 NutrientEntrySchema.index({ food_id: 1, nutrient_id: 1 }, { unique: true });

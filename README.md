@@ -13,7 +13,7 @@ GET api/foods/5f77ba2bfe614c1ac4e63a3d
 
 ## Prerequisites:
 - Node.js 15.6.0
-- MongoDB 4.4.3
+- MongoDB Community Server 4.4.3
 - MongoDB Database Tools 100.2.1
 
 ## Build and run:

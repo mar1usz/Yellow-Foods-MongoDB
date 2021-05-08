@@ -3,7 +3,9 @@ require('express-async-errors');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const foodsRouter = require('./routes/foods-router');
+const nutrientsRouter = require('./routes/nutrients-router');
 const nutrientEntriesRouter = require('./routes/nutrient-entries-router');
+const unitsRouter = require('./routes/units-router');
 const {
   createNotFound,
   createProblem
@@ -27,7 +29,9 @@ app.use(express.json());
 
 const api_route = '/api';
 app.use(api_route, foodsRouter);
+app.use(api_route, nutrientsRouter);
 app.use(api_route, nutrientEntriesRouter);
+app.use(api_route, unitsRouter);
 
 app.use((req, res, next) => {
   const notFound = createNotFound();

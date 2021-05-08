@@ -1,9 +1,5 @@
 const express = require('express');
 const NutrientEntry = require('../models/nutrient-entry');
-
-const Nutrient = require('../models/nutrient');
-const Unit = require('../models/unit');
-
 const {
   createNotFound,
   createValidationProblem

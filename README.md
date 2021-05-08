@@ -1,14 +1,31 @@
 # Yellow Foods MongoDB
 A MongoDB-backed REST API in JavaScript (Node.js) and Express.js:
 ```HTTP
-GET api/foods/5f77ba2bfe614c1ac4e63a3d
+GET api/foods/6096f88cdedd5a1ea03f7cc9
 ```
 
 ```JavaScript
 {
-    "_id": "5f77ba2bfe614c1ac4e63a3d",
+    "_id": "6096f88cdedd5a1ea03f7cc9",
     "name": "banana"
 }
+```
+
+```HTTP
+GET api/foods/60956ead6b03db1d7c864bab/nutriententries
+```
+
+```JavaScript
+[
+    {
+        "_id": "6096f88cdedd5a1ea03f7cc9",
+        "food_id": "60956ead6b03db1d7c864bab",
+        "nutrient_id": "6096d164674eb5323cb2a19d",
+        "unit_id": "6096d164674eb5323cb2a19d",
+        "amount": 41.67
+    },
+    {...}
+]
 ```
 
 ## Prerequisites:

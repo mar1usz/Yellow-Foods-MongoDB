@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 const Types = mongoose.Types;
 
 const NutrientEntrySchema = new Schema({
-  food: { type: Types.ObjectId, ref: 'Food', required: true },
-  nutrient: { type: Types.ObjectId, ref: 'Nutrient', required: true },
-  unit: { type: Types.ObjectId, ref: 'Unit', required: true },
+  food_id: { type: Types.ObjectId, ref: 'Food', required: true },
+  nutrient_id: { type: Types.ObjectId, ref: 'Nutrient', required: true },
+  unit_id: { type: Types.ObjectId, ref: 'Unit', required: true },
   amount: { type: Types.Decimal128, required: true }
 });
 

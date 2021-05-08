@@ -8,12 +8,12 @@ const {
 const router = express.Router();
 
 router.get('/foods', async (req, res, next) => {
-  const foods = await Food.find().select('_id, name');
+  const foods = await Food.find().select('_id name');
   res.status(200).json(foods);
 });
 
 router.get('/foods/:_id', async (req, res, next) => {
-  const food = await Food.findById(req.params._id).select('_id, name');
+  const food = await Food.findById(req.params._id).select('_id name');
 
   if (food === null) {
     const notFound = createNotFound();
@@ -74,7 +74,7 @@ router.put('/foods/:_id', async (req, res, next) => {
 
 router.delete('/foods/:_id', async (req, res, next) => {
   const removedFood = await Food.findByIdAndRemove(req.params._id).select(
-    '_id, name'
+    '_id name'
   );
 
   if (removedFood === null) {

@@ -21,7 +21,7 @@ GET api/foods/60956ead6b03db1d7c864bab/nutriententries
         "_id": "6096f88cdedd5a1ea03f7cc9",
         "food_id": "60956ead6b03db1d7c864bab",
         "nutrient_id": "6096d164674eb5323cb2a19d",
-        "unit_id": "6096d164674eb5323cb2a19d",
+        "unit_id": "6096d16d674eb5323cb2a19e",
         "amount": 41.67
     },
     {...}

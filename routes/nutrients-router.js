@@ -7,12 +7,12 @@ const {
 const router = express.Router();
 
 router.get('/nutrients', async (req, res, next) => {
-  const nutrients = await Nutrient.find().select('_id name');
-  res.status(200).json(nutrients);
+  const nutrients = await Nutrient.find();
+  res.status(200).json(nutrients.map((n) => toJson(n)));
 });
 
 router.get('/nutrients/:_id', async (req, res, next) => {
-  const nutrient = await Nutrient.findById(req.params._id).select('_id name');
+  const nutrient = await Nutrient.findById(req.params._id);
 
   if (nutrient === null) {
     const notFound = createNotFound();
@@ -20,7 +20,11 @@ router.get('/nutrients/:_id', async (req, res, next) => {
     return;
   }
 
-  res.status(200).json(nutrient);
+  res.status(200).json(toJson(nutrient));
 });
+
+function toJson(nutrient) {
+  return { _id: nutrient._id, name: nutrient.name };
+}
 
 module.exports = router;

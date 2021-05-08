@@ -7,12 +7,12 @@ const {
 const router = express.Router();
 
 router.get('/units', async (req, res, next) => {
-  const units = await Unit.find().select('_id abbreviation');
-  res.status(200).json(units);
+  const units = await Unit.find();
+  res.status(200).json(units.map((u) => toJson(u)));
 });
 
 router.get('/units/:_id', async (req, res, next) => {
-  const unit = await Unit.findById(req.params._id).select('_id abbreviation');
+  const unit = await Unit.findById(req.params._id);
 
   if (unit === null) {
     const notFound = createNotFound();
@@ -20,7 +20,11 @@ router.get('/units/:_id', async (req, res, next) => {
     return;
   }
 
-  res.status(200).json(unit);
+  res.status(200).json(toJson(unit));
 });
+
+function toJson(unit) {
+  return { _id: unit._id, abbreviation: unit.abbreviation };
+}
 
 module.exports = router;

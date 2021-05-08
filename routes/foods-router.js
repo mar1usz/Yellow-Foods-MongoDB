@@ -8,12 +8,12 @@ const {
 const router = express.Router();
 
 router.get('/foods', async (req, res, next) => {
-  const foods = await Food.find().select('_id name');
-  res.status(200).json(foods);
+  const foods = await Food.find();
+  res.status(200).json(foods.map((f) => toJson(f)));
 });
 
 router.get('/foods/:_id', async (req, res, next) => {
-  const food = await Food.findById(req.params._id).select('_id name');
+  const food = await Food.findById(req.params._id);
 
   if (food === null) {
     const notFound = createNotFound();
@@ -21,7 +21,7 @@ router.get('/foods/:_id', async (req, res, next) => {
     return;
   }
 
-  res.status(200).json(food);
+  res.status(200).json(toJson(food));
 });
 
 router.post('/foods', async (req, res, next) => {
@@ -42,7 +42,7 @@ router.post('/foods', async (req, res, next) => {
     return;
   }
 
-  res.status(201).json({ _id: savedFood._id, name: savedFood.name });
+  res.status(201).json(toJson(savedFood));
 });
 
 router.put('/foods/:_id', async (req, res, next) => {
@@ -73,9 +73,7 @@ router.put('/foods/:_id', async (req, res, next) => {
 });
 
 router.delete('/foods/:_id', async (req, res, next) => {
-  const removedFood = await Food.findByIdAndRemove(req.params._id).select(
-    '_id name'
-  );
+  const removedFood = await Food.findByIdAndRemove(req.params._id);
 
   if (removedFood === null) {
     const notFound = createNotFound();
@@ -83,7 +81,11 @@ router.delete('/foods/:_id', async (req, res, next) => {
     return;
   }
 
-  res.status(200).json(removedFood);
+  res.status(200).json(toJson(removedFood));
 });
+
+function toJson(food) {
+  return { _id: food._id, name: food.name };
+}
 
 module.exports = router;

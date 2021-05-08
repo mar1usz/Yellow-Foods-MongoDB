@@ -17,7 +17,8 @@ const db_url = 'mongodb://localhost/yellow_foods_mongodb';
 mongoose.connect(db_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useCreateIndex: true
 });
 
 app.use(logger('common'));

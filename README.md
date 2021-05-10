@@ -22,7 +22,7 @@ GET api/foods/60956ead6b03db1d7c864bab/nutriententries
         "food_id": "60956ead6b03db1d7c864bab",
         "nutrient_id": "6096d164674eb5323cb2a19d",
         "unit_id": "6096d16d674eb5323cb2a19e",
-        "amount": 41.67
+        "amount": { "$numberDecimal": "41.677" }
     },
     {...}
 ]

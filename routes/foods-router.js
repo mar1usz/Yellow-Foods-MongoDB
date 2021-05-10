@@ -4,6 +4,7 @@ const {
   createNotFound,
   createValidationProblem
 } = require('../problem-details/problem-details-convenience-methods');
+const { body, param, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -24,9 +25,12 @@ router.get('/foods/:_id', async (req, res, next) => {
   res.status(200).json(toJson(food));
 });
 
-router.post('/foods', async (req, res, next) => {
-  if (!req.body.name) {
-    const validationProblem = createValidationProblem();
+router.post('/foods', body('name').isString(), async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const validationProblem = createValidationProblem({
+      errors: errors.array()
+    });
     res.status(validationProblem.status).problemJson(validationProblem);
     return;
   }
@@ -45,32 +49,38 @@ router.post('/foods', async (req, res, next) => {
   res.status(201).json(toJson(savedFood));
 });
 
-router.put('/foods/:_id', async (req, res, next) => {
-  if (
-    req.params._id !== req.body._id ||
-    !req.params._id ||
-    !req.body._id ||
-    !req.body.name
-  ) {
-    const validationProblem = createValidationProblem();
-    res.status(validationProblem.status).problemJson(validationProblem);
-    return;
+router.put(
+  '/foods/:_id',
+  param('_id')
+    .isMongoId()
+    .custom((_id, { req }) => _id === req.body._id),
+  body('_id').isMongoId(),
+  body('name').isString(),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const validationProblem = createValidationProblem({
+        errors: errors.array()
+      });
+      res.status(validationProblem.status).problemJson(validationProblem);
+      return;
+    }
+
+    const food = new Food({
+      _id: req.body._id,
+      name: req.body.name
+    });
+    const updatedFood = await Food.findByIdAndUpdate(req.params._id, food);
+
+    if (updatedFood === null) {
+      const notFound = createNotFound();
+      res.status(notFound.status).problemJson(notFound);
+      return;
+    }
+
+    res.status(204).json();
   }
-
-  const food = new Food({
-    _id: req.body._id,
-    name: req.body.name
-  });
-  const updatedFood = await Food.findByIdAndUpdate(req.params._id, food);
-
-  if (updatedFood === null) {
-    const notFound = createNotFound();
-    res.status(notFound.status).problemJson(notFound);
-    return;
-  }
-
-  res.status(204).json();
-});
+);
 
 router.delete('/foods/:_id', async (req, res, next) => {
   const removedFood = await Food.findByIdAndRemove(req.params._id);

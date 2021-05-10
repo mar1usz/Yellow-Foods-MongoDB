@@ -41,4 +41,5 @@ GET api/foods/60956ead6b03db1d7c864bab/nutriententries
 
 ## Credits:
 - express-generator by https://www.npmjs.com/package/express-generator (MIT license)
+- express-validator by https://www.npmjs.com/package/express-validator (MIT license)
 - Problem Details for HTTP APIs by https://tools.ietf.org/html/rfc7807

@@ -4,6 +4,7 @@ const {
   createNotFound,
   createValidationProblem
 } = require('../problem-details/problem-details-convenience-methods');
+const { body, param, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -32,52 +33,62 @@ router.get(
   }
 );
 
-router.post('/foods/:food_id/nutriententries', async (req, res, next) => {
-  if (
-    req.params.food_id !== req.body.food_id ||
-    !req.params.food_id ||
-    !req.body.food_id ||
-    !req.body.nutrient_id ||
-    !req.body.unit_id ||
-    !req.body.amount
-  ) {
-    const validationProblem = createValidationProblem();
-    res.status(validationProblem.status).problemJson(validationProblem);
-    return;
+router.post(
+  '/foods/:food_id/nutriententries',
+  param('food_id')
+    .isMongoId()
+    .custom((food_id, { req }) => food_id === req.body.food_id),
+  body('food_id').isMongoId(),
+  body('nutrient_id').isMongoId(),
+  body('unit_id').isMongoId(),
+  body('amount.$numberDecimal').isDecimal(),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const validationProblem = createValidationProblem({
+        errors: errors.array()
+      });
+      res.status(validationProblem.status).problemJson(validationProblem);
+      return;
+    }
+
+    const nutrientEntry = new NutrientEntry({
+      food_id: req.body.food_id,
+      nutrient_id: req.body.nutrient_id,
+      unit_id: req.body.unit_id,
+      amount: req.body.amount
+    });
+    const savedNutrientEntry = await nutrientEntry.save();
+
+    if (savedNutrientEntry === null) {
+      const notFound = createNotFound();
+      res.status(notFound.status).problemJson(notFound);
+      return;
+    }
+
+    res.status(201).json(toJson(savedNutrientEntry));
   }
-
-  const nutrientEntry = new NutrientEntry({
-    food_id: req.body.food_id,
-    nutrient_id: req.body.nutrient_id,
-    unit_id: req.body.unit_id,
-    amount: req.body.amount
-  });
-  const savedNutrientEntry = await nutrientEntry.save();
-
-  if (savedNutrientEntry === null) {
-    const notFound = createNotFound();
-    res.status(notFound.status).problemJson(notFound);
-    return;
-  }
-
-  res.status(201).json(toJson(savedNutrientEntry));
-});
+);
 
 router.put(
   '/foods/:food_id/nutriententries/:nutrientEntry_id',
+  param('food_id')
+    .isMongoId()
+    .custom((food_id, { req }) => food_id === req.body.food_id),
+  body('food_id').isMongoId(),
+  param('nutrientEntry_id')
+    .isMongoId()
+    .custom((nutrientEntry_id, { req }) => nutrientEntry_id === req.body._id),
+  body('_id').isMongoId(),
+  body('nutrient_id').isMongoId(),
+  body('unit_id').isMongoId(),
+  body('amount.$numberDecimal').isDecimal(),
   async (req, res, next) => {
-    if (
-      req.params.food_id !== req.body.food_id ||
-      !req.params.food_id ||
-      !req.body.food_id ||
-      req.params.nutrientEntry_id !== req.body._id ||
-      !req.params.nutrientEntry_id ||
-      !req.body._id ||
-      !req.body.nutrient_id ||
-      !req.body.unit_id ||
-      !req.body.amount
-    ) {
-      const validationProblem = createValidationProblem();
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const validationProblem = createValidationProblem({
+        errors: errors.array()
+      });
       res.status(validationProblem.status).problemJson(validationProblem);
       return;
     }

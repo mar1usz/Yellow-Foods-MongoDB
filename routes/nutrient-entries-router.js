@@ -5,7 +5,7 @@ const {
   postNutrientEntry,
   putNutrientEntry,
   deleteNutrientEntry
-} = require('../controllers/nutrient-entry-controller');
+} = require('../controllers/nutrient-entries-controller');
 
 const router = express.Router();
 

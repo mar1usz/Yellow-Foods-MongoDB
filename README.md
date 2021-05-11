@@ -28,6 +28,32 @@ GET api/foods/60956ead6b03db1d7c864bab/nutriententries
 ]
 ```
 
+```HTTP
+POST api/foods/60956ead6b03db1d7c864bab/nutriententries
+{
+  "food_id": "60956ead6b03db1d7c864bab",
+  "nutrient_id": "6096d164674eb5323cb2a19d",
+  "unit_id": "6096d164674eb5323cb2a19d",
+  "amount": { "$numberDecimal": "not a decimal" }
+}
+```
+
+```JavaScript
+{
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": [
+        {
+            "value": "not a decimal",
+            "msg": "Invalid value",
+            "param": "amount.$numberDecimal",
+            "location": "body"
+        }
+    ]
+}
+```
+
 ## Prerequisites:
 - Node.js 15.6.0
 - MongoDB Community Server 4.4.3

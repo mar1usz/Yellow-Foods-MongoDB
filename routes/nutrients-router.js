@@ -1,5 +1,8 @@
 const express = require('express');
-const { getNutrients, getNutrient } = require('../controllers/nutrients-controller');
+const {
+  getNutrients,
+  getNutrient
+} = require('../controllers/nutrients-controller');
 
 const router = express.Router();
 

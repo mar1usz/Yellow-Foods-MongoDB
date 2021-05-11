@@ -1,5 +1,7 @@
 const Nutrient = require('../models/nutrient');
-const { createNotFound } = require('../problem-details/problem-details-convenience-methods');
+const {
+  createNotFound
+} = require('../problem-details/problem-details-convenience-methods');
 
 exports.getNutrients = async (req, res, next) => {
   const nutrients = await Nutrient.find();

@@ -9,13 +9,13 @@ const {
 
 const router = express.Router();
 
-const nutrient_entries_route = '/foods/:food_id/nutriententries';
-router.get(nutrient_entries_route, getNutrientEntries);
-router.get(nutrient_entries_route + '/:nutrientEntry_id', getNutrientEntry);
-router.post(nutrient_entries_route, postNutrientEntry);
-router.put(nutrient_entries_route + '/:nutrientEntry_id', putNutrientEntry);
+const nutrientEntries_route = '/foods/:food_id/nutriententries';
+router.get(nutrientEntries_route, getNutrientEntries);
+router.get(nutrientEntries_route + '/:nutrientEntry_id', getNutrientEntry);
+router.post(nutrientEntries_route, postNutrientEntry);
+router.put(nutrientEntries_route + '/:nutrientEntry_id', putNutrientEntry);
 router.delete(
-  nutrient_entries_route + '/:nutrientEntry_id',
+  nutrientEntries_route + '/:nutrientEntry_id',
   deleteNutrientEntry
 );
 

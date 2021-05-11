@@ -3,12 +3,12 @@ const {
   createNotFound
 } = require('../problem-details/problem-details-convenience-methods');
 
-exports.getUnits = async (req, res, next) => {
+exports.getUnits = async function (req, res, next) {
   const units = await Unit.find();
   res.status(200).json(units.map((u) => toJson(u)));
 };
 
-exports.getUnit = async (req, res, next) => {
+exports.getUnit = async function (req, res, next) {
   const unit = await Unit.findById(req.params._id);
 
   if (unit === null) {

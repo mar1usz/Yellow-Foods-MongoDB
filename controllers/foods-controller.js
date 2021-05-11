@@ -5,12 +5,12 @@ const {
 } = require('../problem-details/problem-details-convenience-methods');
 const { body, param, validationResult } = require('express-validator');
 
-exports.getFoods = async (req, res, next) => {
+exports.getFoods = async function (req, res, next) {
   const foods = await Food.find();
   res.status(200).json(foods.map((f) => toJson(f)));
 };
 
-exports.getFood = async (req, res, next) => {
+exports.getFood = async function (req, res, next) {
   const food = await Food.findById(req.params._id);
 
   if (food === null) {
@@ -24,7 +24,8 @@ exports.getFood = async (req, res, next) => {
 
 exports.postFood = [
   body('name').isString(),
-  async (req, res, next) => {
+
+  async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const validationProblem = createValidationProblem({
@@ -55,7 +56,8 @@ exports.putFood = [
     .custom((_id, { req }) => _id === req.body._id),
   body('_id').isMongoId(),
   body('name').isString(),
-  async (req, res, next) => {
+
+  async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const validationProblem = createValidationProblem({
@@ -81,7 +83,7 @@ exports.putFood = [
   }
 ];
 
-exports.deleteFood = async (req, res, next) => {
+exports.deleteFood = async function (req, res, next) {
   const removedFood = await Food.findByIdAndRemove(req.params._id);
 
   if (removedFood === null) {

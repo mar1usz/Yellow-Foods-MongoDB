@@ -5,14 +5,14 @@ const {
 } = require('../problem-details/problem-details-convenience-methods');
 const { body, param, validationResult } = require('express-validator');
 
-exports.getNutrientEntries = async (req, res, next) => {
+exports.getNutrientEntries = async function (req, res, next) {
   const nutrientEntries = await NutrientEntry.find({
     food_id: req.params.food_id
   });
   res.status(200).json(nutrientEntries.map((ne) => toJson(ne)));
 };
 
-exports.getNutrientEntry = async (req, res, next) => {
+exports.getNutrientEntry = async function (req, res, next) {
   const nutrientEntry = await NutrientEntry.findOne({
     food_id: req.params.food_id,
     _id: req.params.nutrientEntry_id
@@ -35,7 +35,8 @@ exports.postNutrientEntry = [
   body('nutrient_id').isMongoId(),
   body('unit_id').isMongoId(),
   body('amount.$numberDecimal').isDecimal(),
-  async (req, res, next) => {
+
+  async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const validationProblem = createValidationProblem({
@@ -75,7 +76,8 @@ exports.putNutrientEntry = [
   body('nutrient_id').isMongoId(),
   body('unit_id').isMongoId(),
   body('amount.$numberDecimal').isDecimal(),
-  async (req, res, next) => {
+
+  async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const validationProblem = createValidationProblem({
@@ -107,7 +109,7 @@ exports.putNutrientEntry = [
   }
 ];
 
-exports.deleteNutrientEntry = async (req, res, next) => {
+exports.deleteNutrientEntry = async function (req, res, next) {
   const removedNutrientEntry = await NutrientEntry.findByIdAndRemove(
     req.params.nutrientEntry_id
   );

@@ -35,9 +35,10 @@ server.on('listening', onListening);
  * Open url if it's the first time the process is run.
  */
 
+const firstRunUrl = 'http://localhost:3000/api/foods';
 if (firstRun()) {
   (async () => {
-    await open('http://localhost:3000/api/foods');
+    await open(firstRunUrl);
   })();
 }
 

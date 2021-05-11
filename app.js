@@ -33,12 +33,12 @@ app.use(api_route, nutrientsRouter);
 app.use(api_route, nutrientEntriesRouter);
 app.use(api_route, unitsRouter);
 
-app.use((req, res, next) => {
+app.use(function (req, res, next) {
   const notFound = createNotFound();
   res.status(notFound.status).problemJson(notFound);
 });
 
-app.use((err, req, res, next) => {
+app.use(function (err, req, res, next) {
   const problem =
     app.get('env') === 'development'
       ? createProblem({ title: err.message, detail: err.stack })

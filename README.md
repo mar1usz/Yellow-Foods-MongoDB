@@ -61,7 +61,7 @@ PUT api/foods/60956ead6b03db1d7c864bab/nutriententries/6096f88cdedd5a1ea03f7cc9
 - MongoDB Database Tools 100.2.1
 
 ## Build and run:
-### nodemon / first-run / open:
+### nodemon / first-run and open:
 - `npm update`
 - `npm install`
 - `npm start`

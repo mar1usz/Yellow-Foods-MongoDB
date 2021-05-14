@@ -29,8 +29,9 @@ GET api/foods/60956ead6b03db1d7c864bab/nutriententries
 ```
 
 ```HTTP
-POST api/foods/60956ead6b03db1d7c864bab/nutriententries
+PUT api/foods/60956ead6b03db1d7c864bab/nutriententries/6096f88cdedd5a1ea03f7cc9
 {
+  "_id": "6096f88cdedd5a1ea03f7cc9",
   "food_id": "60956ead6b03db1d7c864bab",
   "nutrient_id": "6096d164674eb5323cb2a19d",
   "unit_id": "6096d164674eb5323cb2a19d",
@@ -60,7 +61,7 @@ POST api/foods/60956ead6b03db1d7c864bab/nutriententries
 - MongoDB Database Tools 100.2.1
 
 ## Build and run:
-### nodemon / open:
+### nodemon / first-run and open:
 - `npm update`
 - `npm install`
 - `npm start`

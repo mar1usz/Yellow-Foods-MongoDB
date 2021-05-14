@@ -71,7 +71,7 @@ PUT api/foods/609ed176e6dd070a805b303d/nutriententries/609ed176e6dd070a805b304b
 ### MongoDB:
 - `mongorestore --db=yellow_foods_mongodb yellow_foods_mongodb/`
 
-### nodemon / first-run and open:
+### nodemon / first-run / open:
 - `npm update`
 - `npm install`
 - `npm start`

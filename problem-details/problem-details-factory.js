@@ -16,11 +16,8 @@ exports.problemDetailsFactory = {
     if (instance && typeof instance === 'string')
       problemDetails.instance = instance;
 
-    if (extensions && extensions instanceof Object) {
-        for (const property in extensions) {
-            problemDetails[property] = extensions[property];
-        }
-    }
+    if (extensions && extensions instanceof Object)
+      Object.assign(problemDetails, extensions);
 
     if ('type' in problemDetails === false)
       problemDetails.type = 'https://tools.ietf.org/html/rfc7231#section-6.6.1';

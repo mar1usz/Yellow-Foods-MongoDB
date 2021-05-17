@@ -17,9 +17,9 @@ exports.problemDetailsFactory = {
       problemDetails.instance = instance;
 
     if (extensions && extensions instanceof Object) {
-      for (const [key, value] of Object.entries(extensions)) {
-        problemDetails[key] = value;
-      }
+        for (const property in extensions) {
+            problemDetails[property] = extensions[property];
+        }
     }
 
     if ('type' in problemDetails === false)

@@ -7,7 +7,7 @@ GET api/foods/609ed176e6dd070a805b303d
 ```JavaScript
 {
     "_id": "609ed176e6dd070a805b303d",
-    "name": "banana"
+    "name": "Banana"
 }
 ```
 
